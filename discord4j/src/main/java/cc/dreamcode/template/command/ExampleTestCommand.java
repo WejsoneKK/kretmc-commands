@@ -1,4 +1,4 @@
-package cc.dreamcode.template.command;
+package dev.wejsonekk.odmccommands.command;
 
 import cc.dreamcode.platform.discord4j.component.command.DiscordCommand;
 import discord4j.core.event.domain.interaction.ChatInputAutoCompleteEvent;

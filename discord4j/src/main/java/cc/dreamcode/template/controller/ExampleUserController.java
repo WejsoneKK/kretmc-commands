@@ -1,4 +1,4 @@
-package cc.dreamcode.template.controller;
+package dev.wejsonekk.odmccommands.controller;
 
 import cc.dreamcode.platform.DreamLogger;
 import cc.dreamcode.platform.discord4j.component.listener.EventHandler;

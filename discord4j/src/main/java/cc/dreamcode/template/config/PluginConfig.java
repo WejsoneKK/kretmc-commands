@@ -1,4 +1,4 @@
-package cc.dreamcode.template.config;
+package dev.wejsonekk.odmccommands.config;
 
 import cc.dreamcode.platform.discord4j.component.configuration.Configuration;
 import cc.dreamcode.platform.discord4j.persistence.StorageConfig;

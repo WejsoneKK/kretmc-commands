@@ -1,4 +1,4 @@
-package cc.dreamcode.template.user;
+package dev.wejsonekk.odmccommands.user;
 
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;

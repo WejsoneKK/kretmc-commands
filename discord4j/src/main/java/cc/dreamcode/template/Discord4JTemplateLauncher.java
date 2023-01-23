@@ -1,4 +1,4 @@
-package cc.dreamcode.template;
+package dev.wejsonekk.odmccommands;
 
 import cc.dreamcode.platform.discord4j.DreamDiscord4JPlatform;
 

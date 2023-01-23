@@ -1,4 +1,4 @@
-package cc.dreamcode.template.user;
+package dev.wejsonekk.odmccommands.user;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.User;
