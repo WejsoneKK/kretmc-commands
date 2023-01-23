@@ -14,6 +14,11 @@ import cc.dreamcode.platform.bukkit.component.DocumentRepositoryComponentResolve
 import cc.dreamcode.platform.bukkit.component.ListenerComponentResolver;
 import cc.dreamcode.platform.bukkit.component.RunnableComponentResolver;
 import cc.dreamcode.platform.component.ComponentManager;
+import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.wejsonekk.odmccommands.command.DiscordCommand;
+import dev.wejsonekk.odmccommands.command.HelpCommand;
+import dev.wejsonekk.odmccommands.command.SupportCommand;
 import dev.wejsonekk.odmccommands.config.MessageConfig;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
 import dev.wejsonekk.odmccommands.mcversion.VersionProvider;
@@ -23,10 +28,12 @@ import eu.okaeri.persistence.document.DocumentPersistence;
 import eu.okaeri.tasker.bukkit.BukkitTasker;
 import lombok.Getter;
 import lombok.NonNull;
+import org.bukkit.command.CommandSender;
 
 public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
 
     @Getter private static BukkitODMCCommandsPlugin bukkitODMCCommandsPlugin;
+    @Getter private LiteCommands<CommandSender> liteCommands;
 
     @Override
     public void load(@NonNull ComponentManager componentManager) {
@@ -40,6 +47,14 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
         this.registerInjectable(BukkitMenuProvider.create(this));
         this.registerInjectable(BukkitNoticeProvider.create(this));
         this.registerInjectable(BukkitCommandProvider.create(this, this.getInjector()));
+        this.liteCommands = LiteBukkitFactory.builder(this.getServer(),
+                "kretmc-command",
+                true)
+                .command(DiscordCommand.class)
+                .command(HelpCommand.class)
+                .command(SupportCommand.class)
+                        .register();
+
 
         componentManager.registerResolver(CommandComponentResolver.class);
         componentManager.registerResolver(ListenerComponentResolver.class);
@@ -54,7 +69,6 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
         });
         componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
             // register persistence + repositories
-            this.registerInjectable(pluginConfig.storageConfig);
 
             componentManager.registerResolver(DocumentPersistenceComponentResolver.class);
             componentManager.registerResolver(DocumentRepositoryComponentResolver.class);

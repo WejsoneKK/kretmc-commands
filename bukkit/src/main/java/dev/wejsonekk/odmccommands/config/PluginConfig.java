@@ -12,12 +12,20 @@ import eu.okaeri.configs.annotation.Names;
 @Configuration(
         child = "config.yml"
 )
-@Header("## Dream-Template (Main-Config) ##")
+@Header("## ODMC-Commands (Main-Config) ##")
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
 public class PluginConfig extends OkaeriConfig {
     @Comment("Debug pokazuje dodatkowe informacje do konsoli. Lepiej wylaczyc. :P")
     public boolean debug = true;
 
-    @Comment("Uzupelnij ponizsze menu danymi.")
-    public StorageConfig storageConfig = new StorageConfig();
+    public boolean isHelpInMenu = true;
+    public boolean isHelpInChat = true;
+    public boolean isHelpInBookMenu = false;
+    public boolean isDiscordInMenu = true;
+    public boolean isDiscordInChat = false;
+    public boolean isDiscordInBookMenu = false;
+    public boolean isRankInMenu = true;
+    public boolean isRankInChat = false;
+    public boolean isRankInBookMenu = false;
+
 }

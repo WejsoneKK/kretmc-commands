@@ -1,6 +1,7 @@
 repositories {
     maven { url "https://repo.codemc.io/repository/nms" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url "https://repo.panda-lang.org/releases" }
 }
 
 dependencies {
@@ -53,6 +54,8 @@ dependencies {
     implementation "cc.dreamcode.command:core:1.2.1"
     implementation "cc.dreamcode.command:bukkit:1.2.1"
 
+    implementation 'dev.rollczi.litecommands:bukkit:2.7.2'
+
     // -- dream-menu --
     implementation "cc.dreamcode.menu:core:0.4.3"
     implementation "cc.dreamcode.menu:bukkit:0.4.3"
@@ -63,7 +66,7 @@ dependencies {
 shadowJar {
     checkstyleTest
 
-    archiveFileName = "Dream-Template-Bukkit-${project.version}.jar"
+    archiveFileName = "KretMC-Command-Bukkit-${project.version}.jar"
 
     minimize()
 
