@@ -5,60 +5,72 @@ import cc.dreamcode.menu.bukkit.BukkitMenuProvider;
 import cc.dreamcode.menu.serdes.bukkit.okaeri.MenuBuilderSerdes;
 import cc.dreamcode.notice.bukkit.BukkitNoticeProvider;
 import cc.dreamcode.notice.bukkit.okaeri_serdes.BukkitNoticeSerdes;
+import cc.dreamcode.platform.DreamPlatform;
 import cc.dreamcode.platform.DreamVersion;
 import cc.dreamcode.platform.bukkit.DreamBukkitPlatform;
-import cc.dreamcode.platform.bukkit.component.CommandComponentResolver;
-import cc.dreamcode.platform.bukkit.component.ConfigurationComponentResolver;
-import cc.dreamcode.platform.bukkit.component.DocumentPersistenceComponentResolver;
-import cc.dreamcode.platform.bukkit.component.DocumentRepositoryComponentResolver;
-import cc.dreamcode.platform.bukkit.component.ListenerComponentResolver;
-import cc.dreamcode.platform.bukkit.component.RunnableComponentResolver;
+import cc.dreamcode.platform.bukkit.component.*;
 import cc.dreamcode.platform.component.ComponentManager;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.wejsonekk.odmccommands.command.DiscordCommand;
 import dev.wejsonekk.odmccommands.command.HelpCommand;
+import dev.wejsonekk.odmccommands.command.KretMCAdminCommands;
 import dev.wejsonekk.odmccommands.command.SupportCommand;
+import dev.wejsonekk.odmccommands.config.ConfigService;
 import dev.wejsonekk.odmccommands.config.MessageConfig;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
 import dev.wejsonekk.odmccommands.mcversion.VersionProvider;
-import dev.wejsonekk.odmccommands.user.UserRepository;
 import eu.okaeri.configs.serdes.OkaeriSerdesPack;
+import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.persistence.document.DocumentPersistence;
 import eu.okaeri.tasker.bukkit.BukkitTasker;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
-public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
+import java.io.File;
 
-    @Getter private static BukkitODMCCommandsPlugin bukkitODMCCommandsPlugin;
-    @Getter private LiteCommands<CommandSender> liteCommands;
+public final class BukkitCommandPlugin extends DreamBukkitPlatform {
 
+
+    @Getter
+    private static BukkitCommandPlugin bukkitCommandPlugin;
+    @Getter
+    private LiteCommands < CommandSender > liteCommands;
+    @Getter
+    private ConfigService configService;
+    @Inject private PluginConfig config;
+    @Inject private MessageConfig messages;
     @Override
     public void load(@NonNull ComponentManager componentManager) {
-        bukkitODMCCommandsPlugin = this;
+        bukkitCommandPlugin = this;
     }
 
     @Override
     public void enable(@NonNull ComponentManager componentManager) {
-        this.registerInjectable(VersionProvider.getVersionAccessor());
-        this.registerInjectable(BukkitTasker.newPool(this));
-        this.registerInjectable(BukkitMenuProvider.create(this));
-        this.registerInjectable(BukkitNoticeProvider.create(this));
-        this.registerInjectable(BukkitCommandProvider.create(this, this.getInjector()));
+
+        this.configService = new ConfigService();
+
+        this.messages = this.configService.create(MessageConfig.class, new File(this.getDataFolder(), "messages.yml"));
+        this.config = this.configService.create(PluginConfig.class, new File(this.getDataFolder(), "config.yml"));
         this.liteCommands = LiteBukkitFactory.builder(this.getServer(),
-                "kretmc-command",
-                true)
+                        "kretmc-commands",
+                        false)
                 .command(DiscordCommand.class)
                 .command(HelpCommand.class)
                 .command(SupportCommand.class)
-                        .register();
+                .command(KretMCAdminCommands.class)
+                .register();
+        this.registerInjectable ( VersionProvider.getVersionAccessor ( ) );
+        this.registerInjectable ( BukkitTasker.newPool ( this ) );
+        this.registerInjectable ( BukkitMenuProvider.create ( this ) );
+        this.registerInjectable ( BukkitNoticeProvider.create ( this ) );
+        this.registerInjectable ( BukkitCommandProvider.create ( this , this.getInjector ( ) ) );
 
-
-        componentManager.registerResolver(CommandComponentResolver.class);
-        componentManager.registerResolver(ListenerComponentResolver.class);
-        componentManager.registerResolver(RunnableComponentResolver.class);
+        componentManager.registerResolver ( CommandComponentResolver.class );
+        componentManager.registerResolver ( ListenerComponentResolver.class );
+        componentManager.registerResolver ( RunnableComponentResolver.class );
 
         componentManager.registerResolver(ConfigurationComponentResolver.class);
         componentManager.registerComponent(MessageConfig.class, messageConfig -> {
@@ -67,15 +79,9 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
                 bukkitCommandProvider.setNoPlayerMessage(messageConfig.noPlayer);
             });
         });
-        componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
-            // register persistence + repositories
-
-            componentManager.registerResolver(DocumentPersistenceComponentResolver.class);
-            componentManager.registerResolver(DocumentRepositoryComponentResolver.class);
-
-            componentManager.registerComponent(DocumentPersistence.class);
-            componentManager.registerComponent(UserRepository.class);
-        });
+//        componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
+//
+//        });
     }
 
     @Override
@@ -85,7 +91,7 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
 
     @Override
     public DreamVersion getDreamVersion() {
-        return DreamVersion.create("odmc-commands", "0.1.0", "WejsoneKK");
+        return DreamVersion.create("kretmc-commands", "0.1.0", "WejsoneKK");
     }
 
     @Override

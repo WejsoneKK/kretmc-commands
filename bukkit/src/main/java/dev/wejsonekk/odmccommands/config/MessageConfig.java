@@ -3,22 +3,19 @@ package dev.wejsonekk.odmccommands.config;
 import cc.dreamcode.notice.NoticeType;
 import cc.dreamcode.notice.bukkit.BukkitNotice;
 import cc.dreamcode.platform.bukkit.component.configuration.Configuration;
-import com.sun.tools.javac.util.List;
+import dev.rollczi.litecommands.injector.Injectable;
 import eu.okaeri.configs.OkaeriConfig;
-import eu.okaeri.configs.annotation.Header;
-import eu.okaeri.configs.annotation.Headers;
-import eu.okaeri.configs.annotation.NameModifier;
-import eu.okaeri.configs.annotation.NameStrategy;
-import eu.okaeri.configs.annotation.Names;
+import eu.okaeri.configs.annotation.*;
 
 @Configuration(
-        child = "message.yml"
+        child = "messages.yml"
 )
 @Headers({
-        @Header("## Dream-Template (Message-Config) ##"),
+        @Header("## KretMC-Commands (Message-Config) ##"),
         @Header("Dostepne type: (CHAT, ACTION_BAR, SUBTITLE, TITLE, TITLE_SUBTITLE)")
 })
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
+@Injectable
 public class MessageConfig extends OkaeriConfig {
 
     public BukkitNotice usage = new BukkitNotice(NoticeType.CHAT, "&7Poprawne uzycie: &c{usage}");
@@ -28,6 +25,8 @@ public class MessageConfig extends OkaeriConfig {
     public BukkitNotice notPlayer = new BukkitNotice(NoticeType.CHAT, "&4Nie jestes graczem.");
     public BukkitNotice notNumber = new BukkitNotice(NoticeType.CHAT, "&4Podana liczba &cnie jest cyfra.");
     public BukkitNotice playerIsMe = new BukkitNotice(NoticeType.CHAT, "&4Nie rob tego &cna sobie.");
+
+    public BukkitNotice reloadCommands = new BukkitNotice(NoticeType.ACTION_BAR, "&aPrzeładowano poprawnie komendy");
 
     public String discordInviteLink = "https://discord.gg/ESTfkRwcWw";
     public String discordInviteHover = "&aKliknij tutaj, aby dołączyć na &bserwer discord";
