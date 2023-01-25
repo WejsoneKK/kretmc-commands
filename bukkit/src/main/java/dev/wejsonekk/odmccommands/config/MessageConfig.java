@@ -3,9 +3,10 @@ package dev.wejsonekk.odmccommands.config;
 import cc.dreamcode.notice.NoticeType;
 import cc.dreamcode.notice.bukkit.BukkitNotice;
 import cc.dreamcode.platform.bukkit.component.configuration.Configuration;
-import dev.rollczi.litecommands.injector.Injectable;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.*;
+
+import java.util.List;
 
 @Configuration(
         child = "messages.yml"
@@ -15,10 +16,22 @@ import eu.okaeri.configs.annotation.*;
         @Header("Dostepne type: (CHAT, ACTION_BAR, SUBTITLE, TITLE, TITLE_SUBTITLE)")
 })
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-@Injectable
 public class MessageConfig extends OkaeriConfig {
 
-    public BukkitNotice usage = new BukkitNotice(NoticeType.CHAT, "&7Poprawne uzycie: &c{usage}");
+    public BukkitNotice invalidUsage = new BukkitNotice(
+            NoticeType.CHAT,
+            "&6Poprawne użycie: &c{USAGE}"
+    );
+
+    public BukkitNotice invalidUsageHead = new BukkitNotice(
+            NoticeType.CHAT,
+            "&6Poprawne użycie:"
+    );
+
+    public BukkitNotice invalidUsageBody = new BukkitNotice(
+            NoticeType.CHAT,
+            "&8» &c{USAGE}"
+    );
     public BukkitNotice noPermission = new BukkitNotice(NoticeType.CHAT, "&4Nie posiadasz uprawnien.");
     public BukkitNotice noPlayer = new BukkitNotice(NoticeType.CHAT, "&4Podanego gracza &cnie znaleziono.");
     public BukkitNotice playerIsOffline = new BukkitNotice(NoticeType.CHAT, "&4Podany gracz &cjest offline.");
@@ -41,25 +54,38 @@ public class MessageConfig extends OkaeriConfig {
     public String redditLink = "https://www.reddit.com/user/Kretown";
     public String telegramLink = "https://t.me/Kretownik";
 
-
     public BukkitNotice DiscordCommand = new BukkitNotice(NoticeType.CHAT,
             "&a&m-----------(&9 Discord &a&m)-------------",
             "",
-            "      &b&n{discordInviteLink}",
+            "      &b&n{DISCORDLINK}",
             "",
             "&a&m-----------(&9 Discord &a&m)-------------");
+
+    public BukkitNotice RulesCommand = new BukkitNotice(
+            NoticeType.CHAT,
+            "&8&l&m-------------&8&l &a&lPOMOC &8&l)&m-------------",
+            "&e/kit &8- &7Odbierz swoj kit startowy",
+            "&e/klan &8- &7Wyswietla GUI klanu",
+            "&e/vip &8- &7Informacje o randze &e&lVIP.",
+            "&e/svip &8- &7Informacje o randze &6&lSVIP.",
+            "&e/sponsor &8- &7Informacje o randze &9&lSPONSOR.",
+            "&e/elita &8- &7Informacje o randze &5&lELITA.",
+            "&e/byniu &8- &7Informacje o randze &6&lB&e&lY&6&lN&e&lI&6&lU",
+            "&e/sklep &8- &7Sklep za spedzony czas",
+            "&e/discord &8- &7Wyswietla serwerowy &9&lDiscord.",
+            "&8&l&m-------------&8&l &a&lPOMOC &8&l)&m-------------");
     public BukkitNotice HelpCommand = new BukkitNotice(NoticeType.CHAT,
             "&8&l&m-------------&8&l &a&lPOMOC &8&l)&m-------------",
-                    "&e/kit &8- &7Odbierz swoj kit startowy",
-                    "&e/klan &8- &7Wyswietla GUI klanu",
-                    "&e/vip &8- &7Informacje o randze &e&lVIP.",
-                    "&e/svip &8- &7Informacje o randze &6&lSVIP.",
-                    "&e/sponsor &8- &7Informacje o randze &9&lSPONSOR.",
-                    "&e/elita &8- &7Informacje o randze &5&lELITA.",
-                    "&e/byniu &8- &7Informacje o randze &6&lB&e&lY&6&lN&e&lI&6&lU",
-                    "&e/sklep &8- &7Sklep za spedzony czas",
-                    "&e/discord &8- &7Wyswietla serwerowy &9&lDiscord.",
-                    "&8&l&m-------------&8&l &a&lPOMOC &8&l)&m-------------");
+            "&e/kit &8- &7Odbierz swoj kit startowy",
+            "&e/klan &8- &7Wyswietla GUI klanu",
+            "&e/vip &8- &7Informacje o randze &e&lVIP.",
+            "&e/svip &8- &7Informacje o randze &6&lSVIP.",
+            "&e/sponsor &8- &7Informacje o randze &9&lSPONSOR.",
+            "&e/elita &8- &7Informacje o randze &5&lELITA.",
+            "&e/byniu &8- &7Informacje o randze &6&lB&e&lY&6&lN&e&lI&6&lU",
+            "&e/sklep &8- &7Sklep za spedzony czas",
+            "&e/discord &8- &7Wyswietla serwerowy &9&lDiscord.",
+            "&8&l&m-------------&8&l &a&lPOMOC &8&l)&m-------------");
     public BukkitNotice RankVIPCommand = new BukkitNotice(NoticeType.CHAT,
             "&8&l&m-------------&8&l( &e&lVIP &8&l)&m-------------",
             "&7Unikalny prefix: &e&lVIP.",
@@ -69,7 +95,7 @@ public class MessageConfig extends OkaeriConfig {
             "&7 Koszt: &e 5zl na EDYCJE!",
             "&7Range zakupisz tutaj: &ewww.kretmc.pl",
             "&8&l&m-------------&8&l( &e&lVIP &8&l)&m-------------"
-            );
+    );
     public BukkitNotice RankSVIPCommand = new BukkitNotice(NoticeType.CHAT,
             "&8&l&m-------------&8&l( &e&lSVIP &8&l)&m-------------",
             "&7Ranga &6SVIP &7posiada przywileje:",
@@ -121,32 +147,8 @@ public class MessageConfig extends OkaeriConfig {
             "&7Ranga &6&lB&e&lY&6&lN&e&lI&6&lU jest najlepsza ranga!",
             "&7Range zakupisz tutaj: &ewww.kretmc.pl",
             "&8&l&m-------------&8&l( &6&lB&e&lY&6&lN&e&lI&6&lU &8&l)&m-------------");
-    public BukkitNotice SupportCommandYoutube = new BukkitNotice(NoticeType.CHAT,
-            "&8&l&m-------------&8&l( &f&lWspolpraca &8&l)&m-------------",
-            "&7Na serwerze dostepne sa &fmini&4YT &fmini&bTikTok &7oraz &bMEDIA",
-            "&cWymagania na poszczegolne rangi:",
-            "&fmini&4YT &8-&7 Aby otrzymac range, musisz uzyskac 300 wyswietlen pod odcinkiem z serwera, lub wykonac min. 2 transmisje LIVE.",
-            "&fmini&bTikTok &8-&7 Aby otrzymac range, musisz uzyskac 1000 wyswietlen pod TikTokiem z serwera",
-            "&bMEDIA &8-&7 Aby otrzymac range, musisz wspolpracowac z serwerem!",
-            "&7Posiadajac &f&lmini&4&lYT &7/ &7&fmini&bTikTok &7otrzymujesz przywileje rangi &e&lSVIP&7!",
-            "",
-            "&cJesli spelniasz wymagania, zglos sie na discordzie!",
-            "",
-            "&8&l&m-------------&8&l( &f&lWspolpraca &8&l)&m-------------");
 
-    public BukkitNotice SupportCommandTikTok = new BukkitNotice(NoticeType.CHAT,
-            "&8&l&m-------------&8&l( &f&lWspolpraca &8&l)&m-------------",
-            "&7Na serwerze dostepne sa &fmini&4YT &fmini&bTikTok &7oraz &bMEDIA",
-            "&cWymagania na poszczegolne rangi:",
-            "&fmini&4YT &8-&7 Aby otrzymac range, musisz uzyskac 300 wyswietlen pod odcinkiem z serwera, lub wykonac min. 2 transmisje LIVE.",
-            "&fmini&bTikTok &8-&7 Aby otrzymac range, musisz uzyskac 1000 wyswietlen pod TikTokiem z serwera",
-            "&bMEDIA &8-&7 Aby otrzymac range, musisz wspolpracowac z serwerem!",
-            "&7Posiadajac &f&lmini&4&lYT &7/ &7&fmini&bTikTok &7otrzymujesz przywileje rangi &e&lSVIP&7!",
-            "",
-            "&cJesli spelniasz wymagania, zglos sie na discordzie!",
-            "",
-            "&8&l&m-------------&8&l( &f&lWspolpraca &8&l)&m-------------");
-    public BukkitNotice SupportCommandMiniYT = new BukkitNotice(NoticeType.CHAT,
+    public BukkitNotice SupportCommand = new BukkitNotice(NoticeType.CHAT,
             "&8&l&m-------------&8&l( &f&lWspolpraca &8&l)&m-------------",
             "&7Na serwerze dostepne sa &fmini&4YT &fmini&bTikTok &7oraz &bMEDIA",
             "&cWymagania na poszczegolne rangi:",

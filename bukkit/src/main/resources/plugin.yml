@@ -4,5 +4,5 @@ name: "kretmc-commands"
 description: "KretMC-Command written by WejsoneKK for Kretownik"
 website: "https://wejsonekk.dev/KretMC-Project"
 author: "WejsoneKK"
-prefix: "KretMC-Commands-Bukkit"
+prefix: "kretmc-commands"
 api-version: 1.13
