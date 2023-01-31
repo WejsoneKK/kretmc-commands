@@ -21,6 +21,7 @@ import dev.wejsonekk.odmccommands.command.HelpCommand;
 import dev.wejsonekk.odmccommands.command.SupportCommand;
 import dev.wejsonekk.odmccommands.config.MessageConfig;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
+import dev.wejsonekk.odmccommands.controller.UserController;
 import dev.wejsonekk.odmccommands.mcversion.VersionProvider;
 import dev.wejsonekk.odmccommands.user.UserRepository;
 import eu.okaeri.configs.serdes.OkaeriSerdesPack;
@@ -30,14 +31,16 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.command.CommandSender;
 
-public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
+import java.util.stream.Stream;
 
-    @Getter private static BukkitODMCCommandsPlugin bukkitODMCCommandsPlugin;
+public final class BukkitCommandPlugin extends DreamBukkitPlatform {
+
+    @Getter private static BukkitCommandPlugin bukkitCommandPlugin;
     @Getter private LiteCommands<CommandSender> liteCommands;
 
     @Override
     public void load(@NonNull ComponentManager componentManager) {
-        bukkitODMCCommandsPlugin = this;
+        bukkitCommandPlugin = this;
     }
 
     @Override
@@ -48,13 +51,12 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
         this.registerInjectable(BukkitNoticeProvider.create(this));
         this.registerInjectable(BukkitCommandProvider.create(this, this.getInjector()));
         this.liteCommands = LiteBukkitFactory.builder(this.getServer(),
-                "kretmc-command",
+                "freezemc-server",
                 true)
                 .command(DiscordCommand.class)
                 .command(HelpCommand.class)
                 .command(SupportCommand.class)
                         .register();
-
 
         componentManager.registerResolver(CommandComponentResolver.class);
         componentManager.registerResolver(ListenerComponentResolver.class);
@@ -76,11 +78,17 @@ public final class BukkitODMCCommandsPlugin extends DreamBukkitPlatform {
             componentManager.registerComponent(DocumentPersistence.class);
             componentManager.registerComponent(UserRepository.class);
         });
+        Stream.of(new UserController()
+        ).forEach(listener -> {
+            this.getServer().getPluginManager().registerEvents(listener, this);
+        });
     }
 
     @Override
     public void disable() {
         // features need to be call when server is stopping
+
+        this.liteCommands.getPlatform().unregisterAll();
     }
 
     @Override
