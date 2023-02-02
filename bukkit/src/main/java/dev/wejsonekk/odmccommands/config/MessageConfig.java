@@ -21,13 +21,16 @@ import eu.okaeri.configs.annotation.Names;
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
 public class MessageConfig extends OkaeriConfig {
 
-    public BukkitNotice usage = new BukkitNotice(NoticeType.CHAT, "&7Poprawne uzycie: &c{usage}");
-    public BukkitNotice noPermission = new BukkitNotice(NoticeType.CHAT, "&4Nie posiadasz uprawnien.");
-    public BukkitNotice noPlayer = new BukkitNotice(NoticeType.CHAT, "&4Podanego gracza &cnie znaleziono.");
-    public BukkitNotice playerIsOffline = new BukkitNotice(NoticeType.CHAT, "&4Podany gracz &cjest offline.");
-    public BukkitNotice notPlayer = new BukkitNotice(NoticeType.CHAT, "&4Nie jestes graczem.");
-    public BukkitNotice notNumber = new BukkitNotice(NoticeType.CHAT, "&4Podana liczba &cnie jest cyfra.");
-    public BukkitNotice playerIsMe = new BukkitNotice(NoticeType.CHAT, "&4Nie rob tego &cna sobie.");
+    public BukkitNotice usage = new BukkitNotice(NoticeType.CHAT, "&cPoprawne użycie: &6{usage}");
+    public BukkitNotice noPermission = new BukkitNotice(NoticeType.CHAT, "&cNie posiadasz wystarczającej ilości uprawnień.");
+    public BukkitNotice noPlayer = new BukkitNotice(NoticeType.CHAT, "&cPodany gracz nie został odnaleziony.");
+    public BukkitNotice playerIsOffline = new BukkitNotice(NoticeType.CHAT, "&cPodany gracz jest teraz offline.");
+    public BukkitNotice notPlayer = new BukkitNotice(NoticeType.CHAT, "&cNie jesteś graczem -_-.");
+    public BukkitNotice notNumber = new BukkitNotice(NoticeType.CHAT, "&cPodana liczba &cnie jest cyfra.");
+    public BukkitNotice playerIsMe = new BukkitNotice(NoticeType.CHAT, "&cNie rób tego na sobie.");
+
+    public BukkitNotice reloadConfiguration = new BukkitNotice(NoticeType.ACTION_BAR, "&aPrzeładowano pomyślnie konfiguracje pluginu");
+    public BukkitNotice reloadMessages = new BukkitNotice(NoticeType.ACTION_BAR, "&aPrzeładowano pomyślnie konfiguracje językową pluginu");
 
     public String discordInviteLink = "https://discord.gg/ESTfkRwcWw";
     public String discordInviteHover = "&aKliknij tutaj, aby dołączyć na &bserwer discord";
@@ -65,36 +68,43 @@ public class MessageConfig extends OkaeriConfig {
             "&8&l&m-------------&8&l( &e&lVIP &8&l)&m-------------",
             "&7Unikalny prefix: &e&lVIP.",
             "&e/kit vip &8-&7Zestaw VIPA",
-            "&e/repair &8-&7Mozliwosc naprawiania przedmiotu za pomoca /repair",
+            "&e/napraw &8-&7Możliwość naprawienia przedmiotu trzymanego w ręku",
+            "&e/napraw wszystko &8-&7Możliwość naprawienia wszystkich przedmiotów na raz",
+            "&eDostęp do strefy &e&lVIP",
             "",
-            "&7 Koszt: &e 5zl na EDYCJE!",
-            "&7Range zakupisz tutaj: &ewww.kretmc.pl",
+            "&7Cena rangi na edycję: {VIPEDYCJA}",
+            "&7Cena rangi na zawsze: {VIPNAZAWSZE}",
+            "&7Range zakupisz tutaj: &e{sklepurl}",
             "&8&l&m-------------&8&l( &e&lVIP &8&l)&m-------------"
             );
     public BukkitNotice RankSVIPCommand = new BukkitNotice(NoticeType.CHAT,
-            "&8&l&m-------------&8&l( &e&lSVIP &8&l)&m-------------",
-            "&7Ranga &6SVIP &7posiada przywileje:",
+            "&8&l&m-------------&8&l( &6&lSVIP &8&l)&m-------------",
+            "&7Unikalny prefix: &6&lSVIP:",
             "&e/kit vip &8-&7Zestaw VIPA",
             "&e/kit svip &8- &7Zestaw SVIPA",
             "&e/repair all &8- &7Mozliwosc naprawiania wszystkich itemow w eq",
             "&e/ec &8- &7Podreczny enderchest",
             "",
-            "&7Koszt: &e10 zl na EDYCJE!",
-            "&7Range zakupisz tutaj: &ewww.kretmc.pl",
-            "&8&l&m-------------&8&l( &e&lSVIP &8&l)&m-------------"
+            "&7Cena rangi na edycję: {SVIPEDYCJA}!",
+            "&7Cena rangi na zawsze: {SVIPNAZAWSZE}!",
+            "",
+            "&7Range zakupisz tutaj: &e{SKLEPURL}",
+            "&8&l&m-------------&8&l( &6&lSVIP &8&l)&m-------------"
     );
     public BukkitNotice RankSponsorCommand = new BukkitNotice(NoticeType.CHAT,
-            "&8&l&m-------------&8&l( &9&lSPONSOR &8&l)&m-------------",
-            "&7Ranga &9SPONSOR &7posiada przywileje:",
-            "&e/kit vip &8-&7Zestaw VIPA",
-            "&e/kit svip &8- &7Zestaw SVIPA",
-            "&e/kit sponsor &8- &7Zestaw SPONSORA",
-            "&e/repair all &8- &7Mozliwosc naprawiania wszystkich itemow w eq",
+            "&8&l&m-------------&8&l( &b&lFREEZE &8&l)&m-------------",
+            "&7Unikalny prefix: &b&lFREEZE",
+            "&ePrzywileje VIPa oraz SVIPa",
+            "&eDostęp do nowych kosmetyków",
+            "&eUderzanie administracji w lobby",
+            "&e",
             "&e/ec &8- &7Podreczny enderchest",
             "",
-            "&7Koszt: &e20 zl na EDYCJE!",
-            "&7Range zakupisz tutaj: &ewww.kretmc.pl",
-            "&8&l&m-------------&8&l( &9&lSPONSOR &8&l)&m-------------");
+            "&7Cena rangi na edycję: {FREEZEEDYCJA}",
+            "&7Cena rangi na zawsze: {FREEZENAZAWSZE}",
+            "&r",
+            "&7Range zakupisz tutaj: &e{SKLEPURL}",
+            "&8&l&m-------------&8&l( &b&lFREEZE &8&l)&m-------------");
     public BukkitNotice RankElitaCommand = new BukkitNotice(NoticeType.CHAT,
             "&8&l&m-------------&8&l( &5&lELITA &8&l)&m-------------",
             "&7Ranga &5ELITA &7posiada przywileje:",

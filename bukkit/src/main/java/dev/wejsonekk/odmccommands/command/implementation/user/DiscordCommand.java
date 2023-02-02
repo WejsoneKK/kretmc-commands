@@ -1,4 +1,4 @@
-package dev.wejsonekk.odmccommands.command;
+package dev.wejsonekk.odmccommands.command.implementation.user;
 
 import dev.rollczi.litecommands.command.execute.Execute;
 import dev.rollczi.litecommands.command.route.Route;

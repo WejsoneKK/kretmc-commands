@@ -1,25 +1,23 @@
 package dev.wejsonekk.odmccommands;
 
-import cc.dreamcode.command.bukkit.BukkitCommandProvider;
 import cc.dreamcode.menu.bukkit.BukkitMenuProvider;
 import cc.dreamcode.menu.serdes.bukkit.okaeri.MenuBuilderSerdes;
 import cc.dreamcode.notice.bukkit.BukkitNoticeProvider;
 import cc.dreamcode.notice.bukkit.okaeri_serdes.BukkitNoticeSerdes;
 import cc.dreamcode.platform.DreamVersion;
 import cc.dreamcode.platform.bukkit.DreamBukkitPlatform;
-import cc.dreamcode.platform.bukkit.component.CommandComponentResolver;
-import cc.dreamcode.platform.bukkit.component.ConfigurationComponentResolver;
-import cc.dreamcode.platform.bukkit.component.DocumentPersistenceComponentResolver;
-import cc.dreamcode.platform.bukkit.component.DocumentRepositoryComponentResolver;
-import cc.dreamcode.platform.bukkit.component.ListenerComponentResolver;
-import cc.dreamcode.platform.bukkit.component.RunnableComponentResolver;
+import cc.dreamcode.platform.bukkit.component.*;
 import cc.dreamcode.platform.component.ComponentManager;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
-import dev.wejsonekk.odmccommands.command.DiscordCommand;
-import dev.wejsonekk.odmccommands.command.HelpCommand;
-import dev.wejsonekk.odmccommands.command.SupportCommand;
-import dev.wejsonekk.odmccommands.config.MessageConfig;
+import dev.wejsonekk.odmccommands.command.implementation.admin.AdminCommandController;
+import dev.wejsonekk.odmccommands.command.implementation.rank.RankFreezeCommand;
+import dev.wejsonekk.odmccommands.command.implementation.rank.RankSVIPCommand;
+import dev.wejsonekk.odmccommands.command.implementation.rank.RankVIPCommand;
+import dev.wejsonekk.odmccommands.command.implementation.user.DiscordCommand;
+import dev.wejsonekk.odmccommands.command.implementation.user.HelpCommand;
+import dev.wejsonekk.odmccommands.command.implementation.user.SupportCommand;
+import dev.wejsonekk.odmccommands.command.implementation.user.UserRulesCommand;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
 import dev.wejsonekk.odmccommands.controller.UserController;
 import dev.wejsonekk.odmccommands.mcversion.VersionProvider;
@@ -49,13 +47,23 @@ public final class BukkitCommandPlugin extends DreamBukkitPlatform {
         this.registerInjectable(BukkitTasker.newPool(this));
         this.registerInjectable(BukkitMenuProvider.create(this));
         this.registerInjectable(BukkitNoticeProvider.create(this));
-        this.registerInjectable(BukkitCommandProvider.create(this, this.getInjector()));
         this.liteCommands = LiteBukkitFactory.builder(this.getServer(),
                 "freezemc-server",
                 true)
+
+                /* User Commands */
+                .command(UserRulesCommand.class)
+                /* Rank Commands */
+                .command(RankVIPCommand.class)
+                .command(RankSVIPCommand.class)
+                .command(RankFreezeCommand.class)
+                /* Basic Commands */
                 .command(DiscordCommand.class)
                 .command(HelpCommand.class)
                 .command(SupportCommand.class)
+
+                /* Controller Command*/
+                .command(AdminCommandController.class)
                         .register();
 
         componentManager.registerResolver(CommandComponentResolver.class);
@@ -63,12 +71,6 @@ public final class BukkitCommandPlugin extends DreamBukkitPlatform {
         componentManager.registerResolver(RunnableComponentResolver.class);
 
         componentManager.registerResolver(ConfigurationComponentResolver.class);
-        componentManager.registerComponent(MessageConfig.class, messageConfig -> {
-            this.getInject(BukkitCommandProvider.class).ifPresent(bukkitCommandProvider -> {
-                bukkitCommandProvider.setNoPermissionMessage(messageConfig.noPermission);
-                bukkitCommandProvider.setNoPlayerMessage(messageConfig.noPlayer);
-            });
-        });
         componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
             // register persistence + repositories
 
