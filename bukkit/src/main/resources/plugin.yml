@@ -1,8 +1,8 @@
-main: "dev.wejsonekk.odmccommands.BukkitTemplatePlugin"
+main: "dev.wejsonekk.odmccommands.BukkitCommandPlugin"
 version: "1.0"
-name: "Dream-Template"
-description: "Dream-Template written by dreamcode.cc"
+name: "odmc-command"
+description: "odmc-command written by odmcdevelopment"
 website: "https://dreamcode.cc"
 author: "author"
-prefix: "Dream-Template-Bukkit"
+prefix: "odmc-command-Bukkit"
 api-version: 1.13
