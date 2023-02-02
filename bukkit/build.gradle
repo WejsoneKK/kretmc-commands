@@ -55,7 +55,7 @@ dependencies {
 
     // -- dream-menu --
     implementation "cc.dreamcode.menu:core:0.4.3"
-    implementation "cc.dreamcode.menu:bukkit:0.4.3"
+    implementation "cc.dreamcode.menu:bukkit:0.4.6"
     implementation "cc.dreamcode.menu:serdes-bukkit:0.4.3"
     implementation "cc.dreamcode.menu:serdes-bukkit-okaeri:0.4.3"
 }
