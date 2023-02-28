@@ -1,33 +1,35 @@
-Working with template:
------
-Clone this repo to your account, rename package name, then by pressing ``CTRL + SHIFT + R`` change all variables to your plugin name. (Template --> PluginName).
+# Working with odmc commands: #
 
-Finally, remove all **unnecessary** template functions.
-(support mc versions can easily removed by deleting implement in settings.gradle)
-
-Read all comment above method/class/reference to find out what it means and how to use it -
-Build to jar by ``shadowJar`` gradle task.
+This repository is a ODMC Developers project  
 
 **Required:**
 -----
 - Spigot-api 1.8.8, 1.12.2, 1.16.5, 1.17.1, 1.18.2, 1.19.3 (or implement by self)
-- Java 8+. (template works on java 8)
+- Java 8+ or Higher
 
-Working with NMS:
+**Working with NMS:**
 -----
 - Add ProtocolLib to build.gradle and work with it.
 - Add craftbukkit packages into mc-version modules.
 
+**Features**
+----
+- Lobby Selector
+- Game Selector
+- Head Clicker (Replacer)
+- V.I.P Commands
+- Spawn Location
+- SetSpawn Location
+
 ------
 
-**Libraries**: <33
-- [Dream-Platform](https://github.com/DreamPoland/dream-platform) by [DreamCode](https://github.com/DreamPoland)
-- [Dream-Menu](https://github.com/DreamPoland/dream-menu) by [DreamCode](https://github.com/DreamPoland)
-- [Dream-Command](https://github.com/DreamPoland/dream-command) by [DreamCode](https://github.com/DreamPoland)
+**Libraries**:
+- [Ryse-Inventory](https://github.com/RyseInventory/RyseInventory) by [Rysefoxx](https://github.com/Rysefoxx?tab=repositories)
+- [OrmLite](https://github.com/j256/ormlite-core) by [j256](https://github.com/j256)
+- [Lite-Commands](https://github.com/Rollczi/LiteCommands) by [Rollczi](https://github.com/Rollczi)
 - [Dream-Notice](https://github.com/DreamPoland/dream-notice) by [DreamCode](https://github.com/DreamPoland)
 - [Dream-Utilities](https://github.com/DreamPoland/dream-utilities) by [DreamCode](https://github.com/DreamPoland)
 - [Okaeri-Configs](https://github.com/OkaeriPoland/okaeri-configs) by [Okaeri](https://github.com/OkaeriPoland)
-- [Okaeri-Persistence](https://github.com/OkaeriPoland/okaeri-persistence) by [Okaeri](https://github.com/OkaeriPoland)
 - [Okaeri-Injector](https://github.com/OkaeriPoland/okaeri-injector) by [Okaeri](https://github.com/OkaeriPoland)
 - [Okaeri-Placeholders](https://github.com/OkaeriPoland/okaeri-placeholders) by [Okaeri](https://github.com/OkaeriPoland)
 - [Okaeri-Tasker](https://github.com/OkaeriPoland/okaeri-tasker) by [Okaeri](https://github.com/OkaeriPoland)

@@ -19,5 +19,4 @@ public class User extends Document {
     public UUID getUniqueId() {
         return this.getPath().toUUID();
     }
-
 }

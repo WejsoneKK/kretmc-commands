@@ -50,7 +50,7 @@ dependencies {
     implementation "cc.dreamcode.notice:bukkit:1.1.1"
     implementation "cc.dreamcode.notice:bukkit-okaeri-serdes:1.1.1"
 
-    // -- dream-command --
+    // -- lite-command --
     implementation 'dev.rollczi.litecommands:bukkit:2.7.2'
 
     // -- dream-menu --
@@ -63,7 +63,7 @@ dependencies {
 shadowJar {
     checkstyleTest
 
-    archiveFileName = "KretMC-Command-Bukkit-${project.version}.jar"
+    archiveFileName = "FreezeMC-Command-Bukkit-${project.version}.jar"
 
     minimize()
 

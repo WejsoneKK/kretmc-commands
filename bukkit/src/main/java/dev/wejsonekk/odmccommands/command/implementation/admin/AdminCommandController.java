@@ -16,12 +16,17 @@ public class AdminCommandController
     @Getter MessageConfig messages;
     @Getter PluginConfig config;
 
-    @Execute(max = 1)
+    @Execute(max = 1, route = "reload")
     @Permission("freezemc.odmccommand.command.command.reload")
     void reload(CommandSender sender){
-        this.messages.reloadConfiguration.send(sender);
-        this.messages.reloadMessages.send(sender);
-        this.config.load();
-        this.messages.load();
+        messages.reloadConfiguration.send(sender);
+        messages.reloadMessages.send(sender);
+        config.load();
+        messages.load();
+    }
+    @Execute(max = 1, min = 0, route = "status")
+    @Permission("freezemc.odmccommand.command.command.status")
+    void getStatusCMD(CommandSender sender){
+        messages.playerIsOffline.send(sender);
     }
 }

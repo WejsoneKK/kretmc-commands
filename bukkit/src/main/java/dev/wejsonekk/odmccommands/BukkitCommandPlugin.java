@@ -10,14 +10,14 @@ import cc.dreamcode.platform.bukkit.component.*;
 import cc.dreamcode.platform.component.ComponentManager;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.wejsonekk.odmccommands.command.handler.InvalidUsage;
+import dev.wejsonekk.odmccommands.command.handler.PermissionMessageHandler;
 import dev.wejsonekk.odmccommands.command.implementation.admin.AdminCommandController;
-import dev.wejsonekk.odmccommands.command.implementation.rank.RankFreezeCommand;
-import dev.wejsonekk.odmccommands.command.implementation.rank.RankSVIPCommand;
-import dev.wejsonekk.odmccommands.command.implementation.rank.RankVIPCommand;
+import dev.wejsonekk.odmccommands.command.implementation.rank.*;
 import dev.wejsonekk.odmccommands.command.implementation.user.DiscordCommand;
 import dev.wejsonekk.odmccommands.command.implementation.user.HelpCommand;
-import dev.wejsonekk.odmccommands.command.implementation.user.SupportCommand;
 import dev.wejsonekk.odmccommands.command.implementation.user.UserRulesCommand;
+import dev.wejsonekk.odmccommands.command.implementation.user.UserTarificationsCommand;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
 import dev.wejsonekk.odmccommands.controller.UserController;
 import dev.wejsonekk.odmccommands.mcversion.VersionProvider;
@@ -50,17 +50,22 @@ public final class BukkitCommandPlugin extends DreamBukkitPlatform {
         this.liteCommands = LiteBukkitFactory.builder(this.getServer(),
                 "freezemc-server",
                 true)
+                .invalidUsageHandler(new InvalidUsage())
+                .permissionHandler(new PermissionMessageHandler())
 
                 /* User Commands */
                 .command(UserRulesCommand.class)
                 /* Rank Commands */
                 .command(RankVIPCommand.class)
                 .command(RankSVIPCommand.class)
+                .command(RankMVPCommand.class)
+                .command(RankELITACommand.class)
                 .command(RankFreezeCommand.class)
                 /* Basic Commands */
                 .command(DiscordCommand.class)
                 .command(HelpCommand.class)
-                .command(SupportCommand.class)
+                .command(UserRulesCommand.class)
+                .command(UserTarificationsCommand.class)
 
                 /* Controller Command*/
                 .command(AdminCommandController.class)
@@ -95,7 +100,7 @@ public final class BukkitCommandPlugin extends DreamBukkitPlatform {
 
     @Override
     public DreamVersion getDreamVersion() {
-        return DreamVersion.create("odmc-commands", "0.1.0", "WejsoneKK");
+        return DreamVersion.create("freezemc-commands", "0.1.1", "WejsoneKK");
     }
 
     @Override

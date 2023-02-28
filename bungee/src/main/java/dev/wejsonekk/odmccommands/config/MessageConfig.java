@@ -14,7 +14,7 @@ import eu.okaeri.configs.annotation.Names;
         child = "message.yml"
 )
 @Headers({
-        @Header("## Dream-Template (Message-Config) ##"),
+        @Header("## ODMC-Commands (Message-Config) ##"),
         @Header("Dostepne type: (CHAT, ACTION_BAR, SUBTITLE, TITLE, TITLE_SUBTITLE, SIDEBAR)")
 })
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)

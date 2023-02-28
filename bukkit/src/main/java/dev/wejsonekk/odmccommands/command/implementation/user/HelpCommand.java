@@ -6,26 +6,19 @@ import dev.wejsonekk.odmccommands.config.MessageConfig;
 import dev.wejsonekk.odmccommands.config.PluginConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
-
+@AllArgsConstructor
 @Route(name = "pomoc", aliases = {"help"})
 public class HelpCommand
 {
 
     @Getter
-    private final PluginConfig config;
+    PluginConfig config;
     @Getter
-
-    private final MessageConfig messages;
-
-    public HelpCommand(PluginConfig config, MessageConfig messages) {
-        this.config = config;
-        this.messages = messages;
-    }
-
+    MessageConfig messages;
     void onExecute(CommandSender sender){
-        this.messages.HelpCommand.send(sender);
+
+        messages.helpMenu.send(sender);
     }
 
 }

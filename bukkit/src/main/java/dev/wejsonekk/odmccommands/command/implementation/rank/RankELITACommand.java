@@ -6,14 +6,14 @@ import dev.wejsonekk.odmccommands.config.MessageConfig;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 
-@Route(name = "freeze", aliases = "freze")
-public class RankFreezeCommand
+@Route(name = "elita")
+public class RankELITACommand
 {
-
     @Getter
     MessageConfig messages;
-    @Execute(max = 1)
+
+    @Execute(min = 0, max = 1)
     void execute(CommandSender sender){
-        messages.freezeMenu.send(sender);
+        messages.elitaMenu.send(sender);
     }
 }
