@@ -51,7 +51,7 @@ dependencies {
     implementation "cc.dreamcode.notice:bukkit-okaeri-serdes:1.1.1"
 
     // -- lite-command --
-    implementation 'dev.rollczi.litecommands:bukkit:2.7.2'
+    implementation 'dev.rollczi.litecommands:bukkit:2.8.5'
 
     // -- dream-menu --
     implementation "cc.dreamcode.menu:core:0.4.3"
